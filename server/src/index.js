@@ -1,10 +1,12 @@
-const express = require("express");
-const body_parser = require("body-parser");
-const jwt = require("jsonwebtoken");
-const cors = require("cors");
+const express = require('express');
+const body_parser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const cors = require('cors');
 
-const { PORT, JWT_PW } = process.env;
-const mongo = require("../config/mongo");
+const PORT = 5000;
+const JWT_PW = '1A5S4D4GF5S3';
+
+const mongo = require('../config/mongo');
 const app = express();
 
 mongo.connectToServer();
@@ -19,27 +21,28 @@ app.use(body_parser.urlencoded({ extended: true }));
  * @param {String} password - Password of login user
  * @return {String} token
  */
-app.post("/login", async (req, res) => {
-	const { email, password } = req.body;
-	const db = mongo.getDb();
-	const user = await db.collection("user").findOne({ email, password });
-	const token = jwt.sign(user, JWT_PW);
-	res.status(200).send({ userData: user, token });
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    const db = mongo.getDb();
+    const user = await db.collection('user').findOne({ email, password });
+    const token = jwt.sign(user, JWT_PW);
+    res.status(200).send({ userData: user, token });
 });
 
-app.get("/auth", (req, res) => {
-	let token = req.header("Authorization");
-	token = token.split(" ")[1];
-	const ok = jwt.verify(token, JWT_PW);
-	res.status(200).send(ok);
+app.get('/auth', (req, res) => {
+    let token = req.header('Authorization');
+    token = token.split(' ')[1];
+    const ok = jwt.verify(token, JWT_PW);
+    res.status(200).send(ok);
 });
 
-app.get("/", (req, res) => {
-	res.status(200).send("Gaivota Test");
+app.get('/', (req, res) => {
+    res.status(200).send('Gaivota Test');
 });
 
-app.listen(PORT !== "undefined" ? PORT : 5000, () => {
-	console.warn("App is running at http://localhost:" + PORT);
+app.listen(PORT !== 'undefined' ? PORT : 5000, () => {
+    console.warn(PORT);
+    console.warn('App is running at http://localhost:' + 5000);
 });
 
 module.exports = app;
