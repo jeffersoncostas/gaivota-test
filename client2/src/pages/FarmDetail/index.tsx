@@ -11,6 +11,7 @@ import { getFarmChartSelector, getFarm } from '../../services/api';
 import { RootState } from '../../store/reducers';
 import FarmInfoDetail from '../../components/FarmInfo/FarmInfoDetail';
 import { FarmsState } from '../../store/reducers/Farms';
+import Header from '../../components/Header';
 
 const Container = styled.div`
     margin: 0 auto;
@@ -40,41 +41,47 @@ const FarmDetail: React.FC = () => {
     }, [selectorData]);
 
     return (
-        <Container>
-            <Row style={{ marginBottom: 30 }}>
-                <Column>
-                    <BackButton
-                        onClick={() => {
-                            history.push('/home');
-                        }}
-                    />
-                </Column>
-            </Row>
-            <Row>
-                <Column>
-                    <MapComponent selectedFarm={selectedFarm} mapHeight={440} />
-                </Column>
+        <>
+            <Header />;
+            <Container>
+                <Row style={{ marginBottom: 30 }}>
+                    <Column>
+                        <BackButton
+                            onClick={() => {
+                                history.push('/home');
+                            }}
+                        />
+                    </Column>
+                </Row>
+                <Row>
+                    <Column>
+                        <MapComponent
+                            selectedFarm={selectedFarm}
+                            mapHeight={440}
+                        />
+                    </Column>
 
-                <Column>
-                    <FarmInfoDetail
-                        onClick={() => {
-                            console.log('clique 1');
-                        }}
-                        onClick2={() => {
-                            console.log('clique 2');
-                        }}
-                    />
-                </Column>
-            </Row>
-            <Row>
-                <Column>
-                    <Chart
-                        selectData={selectorData.data}
-                        selectedFarmId={farmId}
-                    />
-                </Column>
-            </Row>
-        </Container>
+                    <Column>
+                        <FarmInfoDetail
+                            onClick={() => {
+                                console.log('clique 1');
+                            }}
+                            onClick2={() => {
+                                console.log('clique 2');
+                            }}
+                        />
+                    </Column>
+                </Row>
+                <Row>
+                    <Column>
+                        <Chart
+                            selectData={selectorData.data}
+                            selectedFarmId={farmId}
+                        />
+                    </Column>
+                </Row>
+            </Container>
+        </>
     );
 };
 

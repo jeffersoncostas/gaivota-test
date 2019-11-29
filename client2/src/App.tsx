@@ -13,7 +13,6 @@ const App: React.FC = () => {
         <>
             <GlobalStyle />
             <Provider store={store}>
-                <Header />
                 <RootRouting />
             </Provider>
         </>

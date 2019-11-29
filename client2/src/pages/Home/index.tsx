@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/reducers';
 import { getFarms } from '../../services/api';
 import { FarmsState } from '../../store/reducers/Farms';
+import Header from '../../components/Header';
 
 const Container = styled.div`
     margin: 0 auto;
@@ -74,5 +75,10 @@ export default function Home() {
             </Row>
         </>
     );
-    return <Container>{logged ? Content : <Redirect to="/login" />}</Container>;
+    return (
+        <>
+            <Header />;
+            <Container>{logged ? Content : <Redirect to="/login" />}</Container>
+        </>
+    );
 }

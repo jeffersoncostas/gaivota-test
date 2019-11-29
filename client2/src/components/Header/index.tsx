@@ -1,54 +1,61 @@
-import React from 'react'
-import styled from 'styled-components'
-import logo from "../../assets/imgs/logo192.png"
-import { StyledVariables } from '../../styled'
+import React from 'react';
+import styled from 'styled-components';
+import logo from '../../assets/imgs/logo192.png';
+import { StyledVariables } from '../../styled';
+import { Link } from 'react-router-dom';
 
 const Container = styled.header`
     width: 100%;
     background: white;
-    box-shadow: 0px 3px 50px rgba(0,0,0,0.16);
+    box-shadow: 0px 3px 50px rgba(0, 0, 0, 0.16);
     height: 70px;
-    
 
-    .header-container{
+    .header-container {
         padding: ${StyledVariables.containerPadding};
         max-width: ${StyledVariables.lg};
         display: flex;
         margin: 0 auto;
-        >img{
-            
-            width: 40px;
-            height:40px;
-            margin-right: 30px;
-            
+        > a {
+            img {
+                width: 40px;
+                height: 40px;
+                margin-right: 30px;
+            }
         }
-        .header-bttns{
+        .header-bttns {
             display: flex;
             justify-content: flex-end;
             width: 100%;
             align-items: center;
-            a{
+            a {
                 cursor: pointer;
+                text-decoration: none;
+                color: black;
+                margin-right: 20px;
+                &:last-child {
+                    margin: 0;
+                }
             }
         }
     }
-    
+`;
 
-`
-
-export default function Header() {
+const Header: React.FC<{ isUploadPage?: boolean }> = props => {
     return (
         <Container>
             <div className="header-container">
-
-                <img src={logo} />
-                <div className="header-bttns" >
-
+                <Link to="/">
+                    <img src={logo} />
+                </Link>
+                <div className="header-bttns">
+                    {props.isUploadPage ? null : (
+                        <Link to="/upload-chart"> UPLOAD</Link>
+                    )}
                     <a> LOGOUT</a>
-
                 </div>
             </div>
-
         </Container>
-    )
-}
+    );
+};
+
+export default Header;
